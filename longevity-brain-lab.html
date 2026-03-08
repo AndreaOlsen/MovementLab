@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Longevity Brain Lab — The first AI coach that trains your brain and body simultaneously. Neuroscience-backed. Longevity-focused." />
+  <meta property="og:title" content="Longevity Brain Lab — Neuroscience-Backed Performance" />
+  <meta property="og:description" content="Developing a neuroscience-backed and longevity-focused program. The first AI coach that trains your brain and body simultaneously." />
+  <meta property="og:image" content="https://longevitybrainlab.com/og-image.jpg" />
+  <title>Longevity Brain Lab — Neuroscience-Backed Performance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --white:        #FFFFFF;
+      --snow:         #F9F9F8;
+      --mist:         #F3F3F0;
+      --veil:         #EDEDE8;
+      --gold:         #B8935A;
+      --gold-bright:  #CFA76E;
+      --gold-faint:   #F7F1E8;
+      --gold-hair:    #F0E8D8;
+      --forest:       #1A3028;
+      --forest-mid:   #2E5044;
+      --forest-light: #4A7A62;
+      --forest-faint: #EBF2EE;
+      --text-dark:    #1A3028;
+      --text-mid:     #3D5448;
+      --text-soft:    #7A8C84;
+      --text-muted:   #A8B5AF;
+      --shadow-sm:    0 2px 16px rgba(26,48,40,0.06);
+      --shadow-md:    0 8px 40px rgba(26,48,40,0.10);
+      --shadow-lg:    0 20px 60px rgba(26,48,40,0.13);
+      --r-card: 18px;
+      --r-btn:  100px;
+      --font-h: 'Cormorant Garamond', serif;
+      --font-b: 'Jost', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--snow);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--mist); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .75s cubic-bezier(.22,1,.36,1), transform .75s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.v { opacity: 1; transform: none; }
+    .d1 { transition-delay: .12s; }
+    .d2 { transition-delay: .22s; }
+    .d3 { transition-delay: .32s; }
+    .reveal-l {
+      opacity: 0; transform: translateX(-30px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-l.v { opacity: 1; transform: none; }
+    .reveal-r {
+      opacity: 0; transform: translateX(30px);
+      transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal-r.v { opacity: 1; transform: none; }
+
+    /* ── SHARED ── */
+    .sec-label {
+      font-family: var(--font-b);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); text-align: center; margin-bottom: 14px;
+    }
+    .sec-rule {
+      display: block; width: 44px; height: 1px;
+      background: var(--gold); margin: 0 auto 44px; opacity: .65;
+    }
+    .sec-h {
+      font-family: var(--font-h);
+      font-weight: 700; font-style: italic;
+      color: var(--text-dark); text-align: center; line-height: 1.12;
+    }
+    .btn {
+      display: inline-block; font-family: var(--font-b);
+      font-size: 14px; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      border-radius: var(--r-btn); padding: 15px 32px;
+      transition: all .25s ease;
+    }
+    .btn-forest { background: var(--forest); color: var(--white); }
+    .btn-forest:hover { background: var(--forest-mid); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(26,48,40,.22); }
+    .btn-outline { background: transparent; color: var(--forest); border: 1.5px solid var(--forest); }
+    .btn-outline:hover { background: var(--forest-faint); transform: translateY(-2px); }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px;
+      background: rgba(249,249,248,.88);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184,147,90,.15);
+      transition: padding .3s, background .3s, box-shadow .3s;
+    }
+    nav.sc { padding: 13px 48px; background: rgba(249,249,248,.97); box-shadow: 0 2px 24px rgba(26,48,40,.07); }
+    .nav-logo { text-decoration: none; }
+    .nav-wm { font-family: var(--font-h); font-style: italic; font-weight: 600; font-size: 20px; color: var(--forest); display: block; }
+    .nav-rule { display: block; width: 36px; height: 1px; background: var(--gold); margin-top: 5px; }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a {
+      color: var(--text-mid); text-decoration: none;
+      font-size: 12.5px; font-weight: 400; letter-spacing: .13em; text-transform: uppercase;
+      transition: color .2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--gold);
+      transform: scaleX(0); transition: transform .25s; transform-origin: left;
+    }
+    .nav-links a:hover { color: var(--forest); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--forest); color: var(--white);
+      font-family: var(--font-b); font-size: 12.5px; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 11px 24px; border-radius: var(--r-btn); text-decoration: none;
+      transition: all .25s; white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--forest-mid); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,48,40,.2); }
+    .hbg { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hbg span { display: block; width: 24px; height: 1.5px; background: var(--forest); transition: all .3s; }
+    .hbg.o span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hbg.o span:nth-child(2) { opacity: 0; }
+    .hbg.o span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+    .mob-menu {
+      display: none; position: fixed; top: 67px; left: 0; right: 0;
+      background: rgba(249,249,248,.98); backdrop-filter: blur(14px);
+      padding: 20px 32px 28px; border-bottom: 1px solid var(--veil); z-index: 999;
+    }
+    .mob-menu.o { display: block; }
+    .mob-menu a {
+      display: block; color: var(--text-mid); text-decoration: none;
+      font-size: 14px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 13px 0; border-bottom: 1px solid var(--veil);
+    }
+    .mob-menu a:last-child { color: var(--forest); font-weight: 500; border-bottom: none; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; background: var(--white);
+      display: flex; align-items: center;
+      padding-top: 90px; position: relative; overflow: hidden;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      animation: orb-drift 16s ease-in-out infinite alternate;
+    }
+    .ho1 {
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, rgba(184,147,90,.07) 0%, transparent 70%);
+      top: -120px; right: -80px;
+    }
+    .ho2 {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(26,48,40,.04) 0%, transparent 70%);
+      bottom: -80px; left: -60px; animation-direction: alternate-reverse; animation-duration: 20s;
+    }
+    @keyframes orb-drift { from { transform: translate(0,0) scale(1); } to { transform: translate(28px,38px) scale(1.05); } }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(184,147,90,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(184,147,90,.04) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 2; width: 100%;
+      max-width: 1160px; margin: 0 auto; padding: 60px 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+    }
+    .hero-ov {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 500; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+    }
+    .hero-ov::before { content: ''; display: block; width: 26px; height: 1px; background: var(--gold); }
+    .hero-h1 {
+      font-family: var(--font-h); font-size: clamp(40px,4.5vw,64px);
+      font-weight: 700; font-style: italic; color: var(--forest);
+      line-height: 1.08; margin-bottom: 22px;
+    }
+    .word-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .word-inner {
+      display: inline-block; opacity: 0; transform: translateY(100%);
+      animation: word-rise .55s cubic-bezier(.22,1,.36,1) forwards;
+    }
+    @keyframes word-rise { to { opacity: 1; transform: translateY(0); } }
+    .hero-sub { font-size: 18px; line-height: 1.75; color: var(--text-mid); max-width: 460px; margin-bottom: 38px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-proof { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text-soft); letter-spacing: .03em; }
+    .hero-proof::before { content: ''; display: block; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+    /* Brain visual */
+    .hero-vis { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+    .brain-wrap { position: relative; width: 340px; height: 340px; display: flex; align-items: center; justify-content: center; }
+    .halo-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(184,147,90,.18); animation: halo-spin linear infinite; }
+    .hr1 { width: 268px; height: 268px; animation-duration: 26s; }
+    .hr2 { width: 318px; height: 318px; animation-duration: 38s; animation-direction: reverse; border-color: rgba(26,48,40,.09); }
+    @keyframes halo-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .halo-dot { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+    .hd-forest { background: var(--forest-light); }
+    .brain-svg-w { position: relative; z-index: 2; animation: brain-breathe 5s ease-in-out infinite; }
+    @keyframes brain-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+    .stat-float {
+      position: absolute; background: var(--white);
+      border: 1px solid var(--veil); border-radius: 12px;
+      padding: 10px 16px; box-shadow: var(--shadow-md);
+      font-size: 12px; font-weight: 500; color: var(--forest);
+      letter-spacing: .04em; z-index: 3; white-space: nowrap;
+      animation: sf 4s ease-in-out infinite;
+    }
+    .stat-float span { color: var(--gold); font-family: var(--font-h); font-style: italic; font-size: 15px; display: block; }
+    .sf1 { top: 32px; right: -16px; animation-delay: 0s; }
+    .sf2 { bottom: 64px; left: -16px; animation-delay: 1.5s; }
+    .sf3 { bottom: 22px; right: 12px; animation-delay: .8s; }
+    @keyframes sf { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    /* ── PERFORMANCE ── */
+    #performance {
+      padding: 100px 48px; background: var(--forest);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    #performance::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(184,147,90,.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .perf-watermark { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:.04; pointer-events:none; }
+    .perf-h {
+      font-family: var(--font-h); font-size: clamp(34px,4.2vw,54px);
+      font-weight: 700; font-style: italic; color: var(--white);
+      max-width: 760px; margin: 0 auto 14px; line-height: 1.12;
+    }
+    .perf-sub { font-size: 16px; color: rgba(255,255,255,.5); max-width: 500px; margin: 0 auto 54px; line-height: 1.75; }
+    .perf-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; max-width: 860px; margin: 0 auto;
+      background: rgba(255,255,255,.08); border-radius: var(--r-card); overflow: hidden;
+    }
+    .perf-cell {
+      background: rgba(255,255,255,.04); padding: 40px 28px;
+      transition: background .3s;
+    }
+    .perf-cell:hover { background: rgba(255,255,255,.07); }
+    .perf-num {
+      font-family: var(--font-h); font-size: 52px; font-weight: 700; font-style: italic;
+      color: var(--gold-bright); line-height: 1; margin-bottom: 8px; display: block;
+    }
+    .perf-lbl { font-size: 13px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+
+    /* ── HOW IT WORKS ── */
+    #how-it-works {
+      padding: 110px 48px; background: var(--snow);
+      position: relative; overflow: hidden;
+    }
+    #how-it-works::after {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      border: 1px solid rgba(184,147,90,.07);
+      top: 50%; right: -200px; transform: translateY(-50%); pointer-events: none;
+    }
+    .hiw-inner { max-width: 1160px; margin: 0 auto; }
+    .hiw-h { font-size: clamp(32px,3.8vw,48px); margin-bottom: 68px; }
+    .hiw-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .hiw-card {
+      background: var(--white); border-radius: var(--r-card);
+      padding: 44px 36px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--veil); position: relative; overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .hiw-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--forest-light));
+      transform: scaleX(0); transform-origin: left; transition: transform .4s;
+    }
+    .hiw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .hiw-card:hover::before { transform: scaleX(1); }
+    .hiw-ico { width: 68px; height: 68px; margin-bottom: 26px; }
+    .hiw-sl { font-size: 10.5px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: block; }
+    .hiw-card h3 { font-family: var(--font-h); font-size: 24px; font-weight: 600; font-style: italic; color: var(--forest); margin-bottom: 13px; line-height: 1.25; }
+    .hiw-card p { font-size: 15.5px; line-height: 1.8; color: var(--text-mid); }
+
+    /* ── REVIEWS ── */
+    #reviews { padding: 110px 0; background: var(--mist); overflow: hidden; }
+    .rev-hdr { text-align: center; padding: 0 48px; margin-bottom: 56px; }
+    .rev-h { font-size: clamp(32px,3.8vw,48px); margin-bottom: 14px; }
+    .rev-sub { font-size: 16px; color: var(--text-soft); max-width: 400px; margin: 0 auto; }
+    .mq-wrap { display: flex; flex-direction: column; gap: 18px; }
+    .mq-row { display: flex; gap: 18px; overflow: hidden; position: relative; }
+    .mq-row::before, .mq-row::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+    }
+    .mq-row::before { left: 0; background: linear-gradient(90deg, var(--mist), transparent); }
+    .mq-row::after  { right: 0; background: linear-gradient(270deg, var(--mist), transparent); }
+    .mq-track { display: flex; gap: 18px; animation: sc-left 44s linear infinite; width: max-content; }
+    .mq-track-r { animation: sc-right 48s linear infinite; }
+    .mq-row:hover .mq-track, .mq-row:hover .mq-track-r { animation-play-state: paused; }
+    @keyframes sc-left  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes sc-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    .rev-card {
+      width: 320px; flex-shrink: 0;
+      background: var(--white); border: 1px solid var(--veil);
+      border-radius: 16px; padding: 28px 26px;
+      box-shadow: var(--shadow-sm); transition: box-shadow .2s;
+    }
+    .rev-card:hover { box-shadow: var(--shadow-md); }
+    .rev-stars { color: var(--gold); font-size: 13px; letter-spacing: 3px; margin-bottom: 14px; }
+    .rev-txt { font-size: 15px; line-height: 1.75; color: var(--text-mid); font-style: italic; margin-bottom: 20px; }
+    .rev-auth { display: flex; align-items: center; gap: 12px; }
+    .rev-av { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--white); flex-shrink: 0; }
+    .rev-name { font-size: 14px; font-weight: 500; color: var(--forest); display: block; }
+    .rev-role { font-size: 12px; color: var(--text-soft); letter-spacing: .06em; }
+
+    /* ── APP PREVIEW ── */
+    #app {
+      padding: 110px 48px 120px;
+      background: #3D5C4A; /* rich sage green */
+      text-align: center; position: relative; overflow: hidden;
+    }
+    /* Radial gradient: lighter mint center, deeper sage edges */
+    #app::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 55%,
+        rgba(90,130,108,.55) 0%,
+        rgba(45,72,55,.0) 100%);
+      pointer-events: none;
+    }
+    /* Subtle top grain texture */
+    #app::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    /* Typography: higher contrast on dark bg */
+    #app .sec-label { color: rgba(207,167,110,.9); letter-spacing: .28em; }
+    #app .sec-rule  { background: rgba(184,147,90,.6); }
+    #app h2 { font-size: clamp(34px,4.2vw,56px); color: var(--white); letter-spacing: -.01em; margin-bottom: 16px; }
+    .app-sub { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,.58); max-width: 520px; margin: 0 auto 72px; }
+
+    /* Phone cluster — layered fan layout */
+    .phones-cl {
+      display: flex; align-items: flex-end; justify-content: center;
+      margin-bottom: 56px; position: relative; z-index: 2;
+      height: 500px; /* fixed height so absolute phones sit predictably */
+    }
+
+    /* Ambient glow behind center phone */
+    .phones-cl::before {
+      content: ''; position: absolute;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(207,167,110,.18) 0%, transparent 70%);
+      bottom: 20px; left: 50%; transform: translateX(-50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Device shell — off-white bezel */
+    .ph-shell {
+      position: absolute; bottom: 0;
+      border-radius: 36px;
+      background: #E8E4DC; /* off-white device silhouette */
+      padding: 5px; /* bezel thickness */
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.38),
+        0 10px 30px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.5);
+    }
+
+    .ph-shell-c {
+      width: 240px;
+      left: 50%; transform: translateX(-50%);
+      z-index: 3;
+      animation: fl-c 4.5s ease-in-out infinite;
+    }
+    .ph-shell-l {
+      width: 188px;
+      left: calc(50% - 210px);
+      transform: rotate(-10deg);
+      transform-origin: bottom center;
+      z-index: 2;
+      animation: fl-l 4.5s ease-in-out infinite 1.2s;
+      opacity: .92;
+    }
+    .ph-shell-r {
+      width: 188px;
+      right: calc(50% - 210px);
+      transform: rotate(10deg);
+      transform-origin: bottom center;
+      z-index: 2;
+      animation: fl-r 4.5s ease-in-out infinite 2.2s;
+      opacity: .92;
+    }
+
+    @keyframes fl-c { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-14px)} }
+    @keyframes fl-l { 0%,100%{transform:rotate(-10deg) translateY(0)} 50%{transform:rotate(-10deg) translateY(-10px)} }
+    @keyframes fl-r { 0%,100%{transform:rotate(10deg) translateY(0)} 50%{transform:rotate(10deg) translateY(-10px)} }
+
+    /* Screen inside bezel */
+    .ph-screen {
+      border-radius: 32px;
+      background: var(--forest);
+      overflow: hidden;
+      position: relative;
+    }
+    /* Inner screen glow: 1px white inner border + top reflection */
+    .ph-screen::before {
+      content: ''; position: absolute; inset: 0; border-radius: 32px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.13);
+      pointer-events: none; z-index: 10;
+    }
+    /* Top reflection shimmer */
+    .ph-screen::after {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 35%;
+      border-radius: 32px 32px 0 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.07) 0%, transparent 100%);
+      pointer-events: none; z-index: 10;
+    }
+
+    .ph-screen-c { min-height: 420px; padding: 28px 16px 20px; }
+    .ph-screen-s { min-height: 320px; padding: 22px 12px 16px; }
+
+    /* Notch pill */
+    .ph-notch {
+      width: 48px; height: 5px; background: rgba(255,255,255,.12);
+      border-radius: 3px; margin: 0 auto 18px;
+    }
+    .ph-notch-s { width: 36px; }
+
+    .ph-hdr { font-size: 12px; color: rgba(255,255,255,.65); letter-spacing: .06em; margin-bottom: 14px; text-align: center; }
+    .ph-hdr-s { font-size: 10.5px; margin-bottom: 10px; }
+
+    .prw { display: flex; justify-content: center; margin: 8px 0 4px; position: relative; }
+    .prw svg { transform: rotate(-90deg); }
+    .pr-bg   { fill: none; stroke: rgba(255,255,255,.10); stroke-width: 6; }
+    .pr-fill { fill: none; stroke: var(--gold-bright); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 251; stroke-dashoffset: 80; animation: ring-in 1.8s ease-out forwards; }
+    .pr-g    { stroke: var(--forest-light); stroke-dashoffset: 25; }
+    @keyframes ring-in { from { stroke-dashoffset: 251; } }
+    .ring-v  { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size: 18px; font-weight: 600; color: var(--gold-bright); }
+    .ph-st   { font-size: 10px; color: rgba(255,255,255,.48); letter-spacing: .1em; text-align: center; margin: 3px 0; }
+    .ph-btn  { background: var(--gold); color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 9px 16px; border-radius: var(--r-btn); text-align: center; margin: 14px auto 0; box-shadow: 0 4px 16px rgba(184,147,90,.4); }
+    .wv-bars { display: flex; gap: 3px; align-items: center; height: 44px; justify-content: center; margin: 10px 0; }
+    .wb { width: 4px; background: var(--gold-bright); border-radius: 2px; animation: wb-a 1.1s ease-in-out infinite; }
+    .wb.g { background: var(--forest-light); }
+    @keyframes wb-a { 0%,100%{height:5px} 50%{height:36px} }
+    .coach-badge { display: flex; align-items: center; gap: 7px; justify-content: center; font-size: 10px; color: rgba(255,255,255,.62); margin: 5px 0; }
+    .pd { width: 7px; height: 7px; background: #6FCF97; border-radius: 50%; animation: pd-a 1.8s ease-in-out infinite; }
+    @keyframes pd-a { 0%,100%{box-shadow:0 0 0 0 rgba(111,207,151,.4)} 50%{box-shadow:0 0 0 5px rgba(111,207,151,0)} }
+    .coach-bbl { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11); border-radius: 10px; padding: 9px 10px; font-size: 9.5px; color: rgba(255,255,255,.56); line-height: 1.5; text-align: center; margin-top: 8px; }
+    .bar-chart { display: flex; gap: 4px; align-items: flex-end; height: 66px; margin: 12px 4px 4px; }
+    .bc { display: flex; flex-direction: column; gap: 2px; align-items: center; flex: 1; }
+    .bs { width: 100%; border-radius: 3px; }
+    .bl { font-size: 7.5px; color: rgba(255,255,255,.28); margin-top: 4px; }
+    .wk-note { font-size: 9.5px; color: rgba(255,255,255,.48); text-align: center; margin-top: 10px; }
+    .launch-badge { display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.18); border-radius: var(--r-btn); padding: 13px 28px; font-size: 14px; font-weight: 400; color: rgba(255,255,255,.82); letter-spacing: .04em; position: relative; z-index: 2; }
+    .blink-d { width: 8px; height: 8px; background: var(--gold-bright); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    /* ── JOIN ── */
+    #join { padding: 110px 48px; background: var(--gold-faint); position: relative; overflow: hidden; text-align: center; }
+    #join::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(184,147,90,.12) 0%, transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+    #join h2 { font-size: clamp(32px,3.8vw,50px); max-width: 680px; margin: 0 auto 52px; }
+    .ben-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 960px; margin: 0 auto 64px; }
+    .ben-card { background: var(--white); border-radius: var(--r-card); padding: 38px 30px; box-shadow: var(--shadow-sm); border: 1px solid rgba(184,147,90,.15); text-align: left; transition: transform .3s, box-shadow .3s; }
+    .ben-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .ben-ico { width: 48px; height: 48px; background: var(--forest-faint); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .ben-card h3 { font-family: var(--font-h); font-size: 21px; font-weight: 600; font-style: italic; color: var(--forest); margin-bottom: 10px; }
+    .ben-card p { font-size: 15px; line-height: 1.8; color: var(--text-mid); }
+    .form-wrap { max-width: 540px; margin: 0 auto; background: var(--white); border: 1px solid rgba(184,147,90,.2); border-radius: var(--r-card); padding: 48px 44px; box-shadow: var(--shadow-md); text-align: left; position: relative; z-index: 2; }
+    .form-h { font-family: var(--font-h); font-size: 30px; font-weight: 600; font-style: italic; color: var(--forest); margin-bottom: 6px; }
+    .form-s { font-size: 14px; color: var(--text-soft); margin-bottom: 28px; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fg { margin-bottom: 16px; }
+    .fg label { display: block; font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-soft); margin-bottom: 7px; }
+    .fg input, .fg textarea { width: 100%; background: var(--snow); border: 1.5px solid var(--veil); border-radius: 10px; padding: 13px 16px; font-family: var(--font-b); font-size: 15px; color: var(--forest); outline: none; transition: border-color .2s, box-shadow .2s; }
+    .fg input::placeholder, .fg textarea::placeholder { color: var(--text-muted); }
+    .fg input:focus, .fg textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,147,90,.12); background: var(--white); }
+    .f-err { font-size: 12px; color: #C0392B; margin-top: 5px; display: none; }
+    .f-err.on { display: block; }
+    .btn-sub { width: 100%; background: var(--forest); color: var(--white); font-family: var(--font-b); font-weight: 500; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; padding: 16px; border-radius: var(--r-btn); border: none; cursor: pointer; margin-top: 8px; transition: all .25s; }
+    .btn-sub:hover { background: var(--forest-mid); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,48,40,.22); }
+    .btn-sub:active { transform: scale(.98); }
+    .btn-sub-g { background: var(--gold); }
+    .btn-sub-g:hover { background: var(--gold-bright); box-shadow: 0 10px 28px rgba(184,147,90,.3); }
+    .f-ok { display: none; text-align: center; padding: 40px 0; }
+    .f-ok.on { display: block; }
+    .ok-ico { font-size: 42px; margin-bottom: 16px; color: var(--forest); }
+    .ok-h { font-family: var(--font-h); font-size: 28px; font-weight: 600; font-style: italic; color: var(--forest); margin-bottom: 10px; }
+    .ok-t { font-size: 15px; color: var(--text-soft); }
+
+    /* ── FOOTER ── */
+    #contact { padding: 80px 48px 0; background: var(--forest); position: relative; overflow: hidden; }
+    #contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at top right, rgba(184,147,90,.08) 0%, transparent 55%); pointer-events: none; }
+    .ft-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1000px; margin: 0 auto 64px; position: relative; z-index: 2; }
+    .ft-wm { font-family: var(--font-h); font-style: italic; font-weight: 600; font-size: 26px; color: var(--white); display: block; margin-bottom: 5px; }
+    .ft-rule { display: block; width: 36px; height: 1px; background: var(--gold); margin-bottom: 20px; }
+    .ft-tag { font-size: 12px; font-weight: 300; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.36); margin-bottom: 26px; }
+    .ft-info { margin-bottom: 32px; }
+    .ft-info a { display: block; color: rgba(255,255,255,.48); text-decoration: none; font-size: 15px; margin-bottom: 8px; transition: color .2s; }
+    .ft-info a:hover { color: var(--gold-bright); }
+    .soc-row { display: flex; gap: 10px; }
+    .soc-btn { width: 40px; height: 40px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.42); text-decoration: none; transition: all .2s; }
+    .soc-btn:hover { background: rgba(184,147,90,.15); border-color: rgba(184,147,90,.35); color: var(--gold-bright); }
+    .ft-fh { font-family: var(--font-h); font-size: 28px; font-weight: 600; font-style: italic; color: var(--white); margin-bottom: 6px; }
+    .ft-fs { font-size: 14.5px; color: rgba(255,255,255,.4); margin-bottom: 26px; line-height: 1.7; }
+    /* dark form fields */
+    .df .fg input, .df .fg textarea { background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.1); color: var(--white); }
+    .df .fg input::placeholder, .df .fg textarea::placeholder { color: rgba(255,255,255,.24); }
+    .df .fg input:focus, .df .fg textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,147,90,.15); background: rgba(255,255,255,.07); }
+    .df .fg label { color: rgba(255,255,255,.36); }
+    .df .ok-h { color: var(--white); }
+    .df .ok-t { color: rgba(255,255,255,.48); }
+    .df .ok-ico { color: var(--gold-bright); }
+    .c-ta { height: 100px; resize: vertical; }
+    .ft-bottom { border-top: 1px solid rgba(255,255,255,.09); padding: 24px 0; max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; position: relative; z-index: 2; }
+    .ft-bottom p, .ft-bottom a { font-size: 12px; color: rgba(255,255,255,.22); text-decoration: none; letter-spacing: .04em; }
+    .exp-lnk { font-size: 11px !important; color: rgba(255,255,255,.14) !important; cursor: pointer; transition: color .2s; }
+    .exp-lnk:hover { color: rgba(255,255,255,.45) !important; }
+
+    /* ── BACK TO TOP ── */
+    .btt { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; background: var(--forest); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; text-decoration: none; border: none; cursor: pointer; opacity: 0; transform: translateY(16px); transition: all .3s; z-index: 200; box-shadow: 0 6px 20px rgba(26,48,40,.25); }
+    .btt.v { opacity: 1; transform: none; }
+    .btt:hover { background: var(--forest-mid); transform: translateY(-3px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .perf-grid { grid-template-columns: 1fr; }
+      .perf-cell { border-bottom: 1px solid rgba(255,255,255,.06); }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; } nav.sc { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hbg { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; padding: 40px 24px 60px; gap: 44px; }
+      .hero-vis { order: -1; }
+      .brain-wrap { width: 260px; height: 260px; }
+      .hr1 { width: 200px; height: 200px; } .hr2 { width: 250px; height: 250px; }
+      .sf1, .sf3 { display: none; }
+      #performance, #how-it-works, #app, #join { padding: 80px 24px; }
+      .hiw-grid, .ben-grid { grid-template-columns: 1fr; }
+      .phones-cl { height: 380px; }
+      .ph-shell-l, .ph-shell-r { display: none; }
+      .ph-shell-c { width: 200px; left: 50%; transform: translateX(-50%); }
+      .form-wrap { padding: 32px 24px; }
+      .f-row { grid-template-columns: 1fr; }
+      .ft-grid { grid-template-columns: 1fr; gap: 48px; }
+      #contact { padding: 60px 24px 0; }
+      .ft-bottom { flex-direction: column; text-align: center; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .hero-h1 { font-size: 36px; } .hero-sub { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">
+      <span class="nav-wm">Longevity Brain Lab</span>
+      <span class="nav-rule"></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#app">The App</a></li>
+      <li><a href="#join">Join</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#join" class="nav-cta">Join Experimental Group</a>
+    <button class="hbg" id="hbg" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mob-menu" id="mob">
+    <a href="#how-it-works" onclick="cm()">How It Works</a>
+    <a href="#reviews"      onclick="cm()">Reviews</a>
+    <a href="#app"          onclick="cm()">The App</a>
+    <a href="#join"         onclick="cm()">Join</a>
+    <a href="#contact"      onclick="cm()">Contact</a>
+    <a href="#join"         onclick="cm()">Join the Experimental Group</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-orb ho1"></div>
+    <div class="hero-orb ho2"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-ov">Neuroscience &middot; Longevity &middot; Performance</div>
+        <h1 class="hero-h1" id="hero-h1">Developing a neuroscience-backed and longevity-focused program</h1>
+        <p class="hero-sub">The first AI coach that trains your brain and body simultaneously — in real time, during your workout.</p>
+        <div class="hero-btns">
+          <a href="#join" class="btn btn-forest">Join the Experiment</a>
+          <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
+        </div>
+        <div class="hero-proof">Backed by neuroscience. Tested by athletes. Built for longevity.</div>
+      </div>
+      <div class="hero-vis reveal-r">
+        <div class="brain-wrap">
+          <div class="halo-ring hr1">
+            <div class="halo-dot" style="position:absolute;top:-3px;left:50%;transform:translateX(-50%)"></div>
+            <div class="halo-dot hd-forest" style="position:absolute;bottom:-3px;left:50%;transform:translateX(-50%)"></div>
+          </div>
+          <div class="halo-ring hr2">
+            <div class="halo-dot" style="position:absolute;top:-3px;right:26px"></div>
+            <div class="halo-dot hd-forest" style="position:absolute;bottom:-3px;left:26px"></div>
+          </div>
+          <div class="stat-float sf1"><span>68%</span>Cognitive Load</div>
+          <div class="stat-float sf2"><span>Zone 2</span>Physical State</div>
+          <div class="stat-float sf3"><span>Active</span>AI Coaching</div>
+          <div class="brain-svg-w">
+            <svg width="192" height="172" viewBox="0 0 192 172" fill="none">
+              <path d="M96 33 C74 33 55 41 44 57 C31 75 29 97 39 114 C44 123 53 129 57 134 C62 143 67 153 78 153 L96 153" stroke="#B8935A" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M96 33 C118 33 137 41 148 57 C161 75 163 97 153 114 C148 123 139 129 135 134 C130 143 125 153 114 153 L96 153" stroke="#1A3028" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <line x1="96" y1="33" x2="96" y2="153" stroke="#B8935A" stroke-width=".8" stroke-dasharray="4,4" opacity=".5"/>
+              <path d="M61 71 C71 65 79 75 76 85" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".65"/>
+              <path d="M50 93 C60 87 71 96 69 107" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".65"/>
+              <path d="M66 119 C76 115 83 124 81 133" stroke="#B8935A" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".65"/>
+              <path d="M131 71 C121 65 113 75 116 85" stroke="#2E5044" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".65"/>
+              <path d="M142 93 C132 87 121 96 123 107" stroke="#2E5044" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".65"/>
+              <path d="M126 119 C116 115 109 124 111 133" stroke="#2E5044" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".65"/>
+              <circle cx="96" cy="33"  r="3.5" fill="#B8935A"/>
+              <circle cx="69" cy="91"  r="3"   fill="#B8935A" opacity=".8"/>
+              <circle cx="123" cy="91" r="3"   fill="#2E5044" opacity=".8"/>
+              <circle cx="81" cy="133" r="3"   fill="#B8935A" opacity=".7"/>
+              <circle cx="111" cy="133" r="3"  fill="#2E5044" opacity=".7"/>
+              <line x1="96" y1="33" x2="69" y2="91" stroke="#B8935A" stroke-width="1" stroke-dasharray="4,5" opacity=".35"><animate attributeName="stroke-dashoffset" from="0" to="-36" dur="2s" repeatCount="indefinite"/></line>
+              <line x1="96" y1="33" x2="123" y2="91" stroke="#2E5044" stroke-width="1" stroke-dasharray="4,5" opacity=".3"><animate attributeName="stroke-dashoffset" from="0" to="-36" dur="2.6s" repeatCount="indefinite"/></line>
+              <line x1="69" y1="91" x2="81" y2="133" stroke="#B8935A" stroke-width="1" stroke-dasharray="4,5" opacity=".35"><animate attributeName="stroke-dashoffset" from="0" to="-36" dur="3s" repeatCount="indefinite"/></line>
+              <line x1="123" y1="91" x2="111" y2="133" stroke="#2E5044" stroke-width="1" stroke-dasharray="4,5" opacity=".3"><animate attributeName="stroke-dashoffset" from="0" to="-36" dur="2.2s" repeatCount="indefinite"/></line>
+              <line x1="69" y1="91" x2="123" y2="91" stroke="#4A7A62" stroke-width=".8" stroke-dasharray="3,5" opacity=".24"><animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.8s" repeatCount="indefinite"/></line>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section id="performance">
+    <svg class="perf-watermark" width="480" height="480" viewBox="0 0 480 480" fill="none">
+      <circle cx="240" cy="240" r="210" stroke="white" stroke-width="1"/>
+      <circle cx="240" cy="240" r="130" stroke="white" stroke-width=".5"/>
+      <circle cx="240" cy="240" r="55"  stroke="white" stroke-width=".5"/>
+      <line x1="30" y1="240" x2="450" y2="240" stroke="white" stroke-width=".5"/>
+      <line x1="240" y1="30" x2="240" y2="450" stroke="white" stroke-width=".5"/>
+    </svg>
+    <div class="sec-label" style="color:rgba(207,167,110,.85)" class="reveal">What We Are Building</div>
+    <div class="sec-rule" style="background:rgba(184,147,90,.5)"></div>
+    <h2 class="perf-h reveal">Develop optimal physical and cognitive performance</h2>
+    <p class="perf-sub reveal">A unified training system that works with how your brain and body actually function — together.</p>
+    <div class="perf-grid reveal">
+      <div class="perf-cell">
+        <span class="perf-num count-up" data-target="3" data-suffix="+">0</span>
+        <span class="perf-lbl">Steps to unlock your potential</span>
+      </div>
+      <div class="perf-cell">
+        <span class="perf-num count-up" data-target="100" data-suffix="%">0</span>
+        <span class="perf-lbl">AI-personalised sessions</span>
+      </div>
+      <div class="perf-cell">
+        <span class="perf-num count-up" data-target="1" data-suffix="">0</span>
+        <span class="perf-lbl">Unified brain and body coach</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="hiw-inner">
+      <div class="sec-label reveal">How It Works</div>
+      <div class="sec-rule"></div>
+      <h2 class="sec-h hiw-h reveal">Three steps to unlock your potential</h2>
+      <div class="hiw-grid">
+
+        <div class="hiw-card reveal d1">
+          <svg class="hiw-ico" viewBox="0 0 68 68" fill="none">
+            <rect x="18" y="6" width="32" height="56" rx="6" stroke="#B8935A" stroke-width="1.5"/>
+            <rect x="22" y="14" width="24" height="34" rx="3" fill="rgba(184,147,90,.06)" stroke="rgba(184,147,90,.35)" stroke-width="1"/>
+            <path d="M30 25 C27 25 24 27 24 31 C24 35 27 37 30 38 L30 41 L38 41 L38 38 C41 37 44 35 44 31 C44 27 41 25 38 25 C36 25 34 27 32 27 C31 27 30 25 30 25Z" stroke="#B8935A" stroke-width="1.2" fill="none" opacity=".8"><animate attributeName="opacity" values=".8;1;.8" dur="2.5s" repeatCount="indefinite"/></path>
+            <circle cx="34" cy="56" r="2.5" stroke="#B8935A" stroke-width="1" opacity=".4"/>
+          </svg>
+          <span class="hiw-sl">Step 01</span>
+          <h3>Open the App</h3>
+          <p>Open the app and input your training goal for today. Your AI coach analyzes your history and sets a personalized session plan.</p>
+        </div>
+
+        <div class="hiw-card reveal d2">
+          <svg class="hiw-ico" viewBox="0 0 68 68" fill="none">
+            <rect x="8" y="28" width="52" height="8" rx="4" stroke="#1A3028" stroke-width="1.5"/>
+            <rect x="4" y="20" width="10" height="24" rx="3" stroke="#1A3028" stroke-width="1.5"/>
+            <rect x="54" y="20" width="10" height="24" rx="3" stroke="#1A3028" stroke-width="1.5"/>
+            <line x1="26" y1="16" x2="22" y2="11" stroke="#B8935A" stroke-width="1.2" stroke-dasharray="2,2" opacity=".7"/>
+            <line x1="34" y1="14" x2="34" y2="8" stroke="#B8935A" stroke-width="1.2" stroke-dasharray="2,2" opacity=".7"/>
+            <line x1="42" y1="16" x2="46" y2="11" stroke="#B8935A" stroke-width="1.2" stroke-dasharray="2,2" opacity=".7"/>
+            <polyline points="6,60 15,60 19,50 23,64 29,48 34,66 39,56 43,62 50,60 62,60" stroke="#2E5044" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".85"><animate attributeName="stroke-dashoffset" from="180" to="0" dur="2.2s" repeatCount="indefinite"/></polyline>
+          </svg>
+          <span class="hiw-sl">Step 02</span>
+          <h3>Start Your Physical Workout</h3>
+          <p>Begin your workout. The app tracks your physical output in real time — heart rate zones, reps, exertion, and recovery windows.</p>
+        </div>
+
+        <div class="hiw-card reveal d3">
+          <svg class="hiw-ico" viewBox="0 0 68 68" fill="none">
+            <path d="M10 14 L10 46 Q10 52 16 52 L28 52 L32 60 L36 52 L52 52 Q58 52 58 46 L58 14 Q58 8 52 8 L16 8 Q10 8 10 14Z" stroke="#B8935A" stroke-width="1.5" fill="rgba(184,147,90,.04)"/>
+            <line x1="20" y1="30" x2="20" y2="30" stroke="#B8935A" stroke-width="2.5" stroke-linecap="round"><animate attributeName="y1" values="30;22;30" dur=".85s" repeatCount="indefinite"/><animate attributeName="y2" values="30;38;30" dur=".85s" repeatCount="indefinite"/></line>
+            <line x1="27" y1="30" x2="27" y2="30" stroke="#B8935A" stroke-width="2.5" stroke-linecap="round"><animate attributeName="y1" values="30;19;30" dur=".65s" repeatCount="indefinite" begin=".1s"/><animate attributeName="y2" values="30;41;30" dur=".65s" repeatCount="indefinite" begin=".1s"/></line>
+            <line x1="34" y1="30" x2="34" y2="30" stroke="#2E5044" stroke-width="2.5" stroke-linecap="round"><animate attributeName="y1" values="30;16;30" dur=".95s" repeatCount="indefinite" begin=".2s"/><animate attributeName="y2" values="30;44;30" dur=".95s" repeatCount="indefinite" begin=".2s"/></line>
+            <line x1="41" y1="30" x2="41" y2="30" stroke="#B8935A" stroke-width="2.5" stroke-linecap="round"><animate attributeName="y1" values="30;21;30" dur=".75s" repeatCount="indefinite" begin=".05s"/><animate attributeName="y2" values="30;39;30" dur=".75s" repeatCount="indefinite" begin=".05s"/></line>
+            <line x1="48" y1="30" x2="48" y2="30" stroke="#2E5044" stroke-width="2.5" stroke-linecap="round"><animate attributeName="y1" values="30;24;30" dur="1.05s" repeatCount="indefinite" begin=".15s"/><animate attributeName="y2" values="30;36;30" dur="1.05s" repeatCount="indefinite" begin=".15s"/></line>
+          </svg>
+          <span class="hiw-sl">Step 03</span>
+          <h3>Talk to Your AI Coach</h3>
+          <p>While you train, speak to your AI coach. It delivers real-time cognitive exercises timed to your physical state — maximizing neuroplasticity when your brain is most receptive.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="rev-hdr">
+      <div class="sec-label reveal">What People Are Saying</div>
+      <div class="sec-rule"></div>
+      <h2 class="sec-h rev-h reveal">Early testers love it</h2>
+      <p class="rev-sub reveal">From athletes to neuroscientists — real feedback from our first experimental group.</p>
+    </div>
+    <div class="mq-wrap">
+      <div class="mq-row"><div class="mq-track" id="t1"></div></div>
+      <div class="mq-row"><div class="mq-track mq-track-r" id="t2"></div></div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section id="app">
+    <div class="sec-label reveal">The App</div>
+    <div class="sec-rule"></div>
+    <h2 class="sec-h reveal">Launching soon. Be first.</h2>
+    <p class="app-sub reveal">We are putting the finishing touches on something extraordinary. The intersection of neuroscience, AI, and physical performance — in your pocket.</p>
+
+    <!-- Phone cluster: absolute positioned, fanned -->
+    <div class="phones-cl reveal">
+
+      <!-- LEFT PHONE — AI Coach -->
+      <div class="ph-shell ph-shell-l">
+        <div class="ph-screen ph-screen-s">
+          <div class="ph-notch ph-notch-s"></div>
+          <div class="ph-hdr ph-hdr-s">AI Coach</div>
+          <div class="wv-bars">
+            <div class="wb"  style="height:20px;animation-delay:0s"></div>
+            <div class="wb"  style="height:30px;animation-delay:.1s"></div>
+            <div class="wb g" style="height:14px;animation-delay:.2s"></div>
+            <div class="wb"  style="height:36px;animation-delay:.05s"></div>
+            <div class="wb g" style="height:22px;animation-delay:.15s"></div>
+            <div class="wb"  style="height:10px;animation-delay:.3s"></div>
+            <div class="wb"  style="height:28px;animation-delay:.08s"></div>
+            <div class="wb g" style="height:18px;animation-delay:.22s"></div>
+          </div>
+          <div class="coach-badge"><div class="pd"></div><span>AI Coach Active</span></div>
+          <div class="coach-bbl">"Try a dual n-back now — you are in Zone 2"</div>
+        </div>
+      </div>
+
+      <!-- CENTER PHONE — Dashboard -->
+      <div class="ph-shell ph-shell-c">
+        <div class="ph-screen ph-screen-c">
+          <div class="ph-notch"></div>
+          <div class="ph-hdr">Good morning, Alex</div>
+          <div class="prw">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <circle class="pr-bg" cx="60" cy="60" r="50"/>
+              <circle class="pr-fill" cx="60" cy="60" r="50" style="stroke-dasharray:314;stroke-dashoffset:94"/>
+              <circle class="pr-bg" cx="60" cy="60" r="34" style="stroke:rgba(255,255,255,.08)"/>
+              <circle class="pr-fill pr-g" cx="60" cy="60" r="34" style="stroke-dasharray:213;stroke-dashoffset:19"/>
+            </svg>
+            <div class="ring-v">68%</div>
+          </div>
+          <div class="ph-st">COGNITIVE LOAD: 68%</div>
+          <div class="ph-st" style="color:rgba(74,122,98,.9)">PHYSICAL READINESS: 91%</div>
+          <div class="ph-btn">Start Session</div>
+        </div>
+      </div>
+
+      <!-- RIGHT PHONE — Weekly Progress -->
+      <div class="ph-shell ph-shell-r">
+        <div class="ph-screen ph-screen-s">
+          <div class="ph-notch ph-notch-s"></div>
+          <div class="ph-hdr ph-hdr-s">Weekly Progress</div>
+          <div class="bar-chart">
+            <div class="bc"><div class="bs" style="height:28px;background:rgba(184,147,90,.55)"></div><div class="bs" style="height:22px;background:rgba(74,122,98,.45)"></div><div class="bl">M</div></div>
+            <div class="bc"><div class="bs" style="height:38px;background:rgba(184,147,90,.65)"></div><div class="bs" style="height:28px;background:rgba(74,122,98,.50)"></div><div class="bl">T</div></div>
+            <div class="bc"><div class="bs" style="height:24px;background:rgba(184,147,90,.50)"></div><div class="bs" style="height:32px;background:rgba(74,122,98,.55)"></div><div class="bl">W</div></div>
+            <div class="bc"><div class="bs" style="height:46px;background:rgba(184,147,90,.80)"></div><div class="bs" style="height:38px;background:rgba(74,122,98,.65)"></div><div class="bl">T</div></div>
+            <div class="bc"><div class="bs" style="height:58px;background:var(--gold-bright);box-shadow:0 0 10px rgba(184,147,90,.45)"></div><div class="bs" style="height:46px;background:var(--forest-light);box-shadow:0 0 8px rgba(74,122,98,.35)"></div><div class="bl">F</div></div>
+          </div>
+          <div class="wk-note">Your best week yet</div>
+        </div>
+      </div>
+
+    </div><!-- /phones-cl -->
+
+    <div class="reveal">
+      <span class="launch-badge"><span class="blink-d"></span>App launching in 2025 — iOS and Android</span>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section id="join">
+    <div style="position:relative;z-index:2;max-width:960px;margin:0 auto">
+      <div class="sec-label reveal">Experimental Group</div>
+      <div class="sec-rule"></div>
+      <h2 class="sec-h reveal">Take part in our experimental group</h2>
+      <div class="ben-grid">
+        <div class="ben-card reveal d1">
+          <div class="ben-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A3028" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h3>Early Access</h3>
+          <p>Be among the first in the world to use the full Longevity Brain Lab app before public launch.</p>
+        </div>
+        <div class="ben-card reveal d2">
+          <div class="ben-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A3028" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <h3>Your Feedback Shapes the Product</h3>
+          <p>Direct line to our founders and researchers. Your input gets built into the real product.</p>
+        </div>
+        <div class="ben-card reveal d3">
+          <div class="ben-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A3028" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+          <h3>Free for the First Year</h3>
+          <p>Full access, zero cost, for your entire first year. No credit card. No catch.</p>
+        </div>
+      </div>
+      <div class="form-wrap reveal">
+        <div id="sc">
+          <h3 class="form-h">Reserve your spot</h3>
+          <p class="form-s">Spots are limited. Join now to secure your place in the experimental group.</p>
+          <form id="sf" novalidate>
+            <div class="f-row">
+              <div class="fg"><label for="sf-fn">First Name</label><input type="text" id="sf-fn" placeholder="Jane"/><div class="f-err" id="sf-fn-e">This field is required.</div></div>
+              <div class="fg"><label for="sf-ln">Last Name</label><input type="text" id="sf-ln" placeholder="Doe"/><div class="f-err" id="sf-ln-e">This field is required.</div></div>
+            </div>
+            <div class="fg"><label for="sf-em">Email Address</label><input type="email" id="sf-em" placeholder="jane@example.com"/><div class="f-err" id="sf-em-e">Please enter a valid email address.</div></div>
+            <div class="fg"><label for="sf-rf">Referral Code <span style="font-size:11px;text-transform:none;letter-spacing:0;opacity:.55">(optional)</span></label><input type="text" id="sf-rf" placeholder="Referral code"/></div>
+            <button type="submit" class="btn-sub">Join the Experimental Group</button>
+          </form>
+        </div>
+        <div class="f-ok" id="sok">
+          <div class="ok-ico">&#10003;</div>
+          <h3 class="ok-h">You are on the list.</h3>
+          <p class="ok-t">We will be in touch soon. Watch your inbox for next steps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact">
+    <div class="ft-grid">
+      <div class="reveal-l">
+        <span class="ft-wm">Longevity Brain Lab</span>
+        <span class="ft-rule"></span>
+        <p class="ft-tag">Neuroscience &middot; Longevity &middot; Performance</p>
+        <div class="ft-info">
+          <a href="mailto:hello@longevitybrainlab.com">hello@longevitybrainlab.com</a>
+          <a href="https://longevitybrainlab.com">longevitybrainlab.com</a>
+        </div>
+        <div class="soc-row">
+          <a href="#" class="soc-btn" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="Twitter / X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="reveal-r df">
+        <h3 class="ft-fh">Get in touch</h3>
+        <p class="ft-fs">Have questions or partnership inquiries? We would love to hear from you.</p>
+        <div id="cc">
+          <form id="cf" novalidate>
+            <div class="f-row">
+              <div class="fg"><label for="cf-fn">First Name</label><input type="text" id="cf-fn" placeholder="Jane"/><div class="f-err" id="cf-fn-e">This field is required.</div></div>
+              <div class="fg"><label for="cf-ln">Last Name</label><input type="text" id="cf-ln" placeholder="Doe"/><div class="f-err" id="cf-ln-e">This field is required.</div></div>
+            </div>
+            <div class="fg"><label for="cf-em">Email Address</label><input type="email" id="cf-em" placeholder="jane@example.com"/><div class="f-err" id="cf-em-e">Please enter a valid email address.</div></div>
+            <div class="fg"><label for="cf-msg">Your Message</label><textarea id="cf-msg" class="c-ta" placeholder="Tell us what is on your mind..."></textarea><div class="f-err" id="cf-msg-e">This field is required.</div></div>
+            <button type="submit" class="btn-sub btn-sub-g">Send Message</button>
+          </form>
+        </div>
+        <div class="f-ok" id="cok">
+          <div class="ok-ico">&#10003;</div>
+          <h3 class="ok-h">Message received.</h3>
+          <p class="ok-t">We will get back to you within 48 hours.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>&#169; 2025 Longevity Brain Lab. All rights reserved.</p>
+      <p><a href="https://longevitybrainlab.com">longevitybrainlab.com</a></p>
+      <a href="#" class="exp-lnk" id="exl">Export Signups</a>
+    </div>
+  </footer>
+
+  <a href="#hero" class="btt" id="btt" aria-label="Back to top">&#8593;</a>
+
+  <script>
+    /* nav scroll */
+    const nav = document.getElementById('nav'), btt = document.getElementById('btt');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('sc', scrollY > 60);
+      btt.classList.toggle('v', scrollY > 400);
+    });
+
+    /* hamburger */
+    const hbg = document.getElementById('hbg'), mob = document.getElementById('mob');
+    hbg.addEventListener('click', () => { hbg.classList.toggle('o'); mob.classList.toggle('o'); });
+    function cm() { hbg.classList.remove('o'); mob.classList.remove('o'); }
+
+    /* hero headline word animation */
+    (function(){
+      const el = document.getElementById('hero-h1');
+      const words = el.textContent.trim().split(' ');
+      el.innerHTML = words.map((w,i) =>
+        `<span class="word-wrap"><span class="word-inner" style="animation-delay:${0.07*i}s">${w}</span></span>`
+      ).join(' ');
+    })();
+
+    /* scroll reveal */
+    const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), { threshold: .10 });
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
+
+    /* count-up */
+    const cio = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if(!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.target, suf = el.dataset.suffix||'';
+        let cur = 0;
+        const step = target > 50 ? Math.ceil(target/38) : 1;
+        const t = setInterval(() => { cur = Math.min(cur+step,target); el.textContent=cur+suf; if(cur>=target) clearInterval(t); }, 28);
+        cio.unobserve(el);
+      });
+    }, { threshold: .4 });
+    document.querySelectorAll('.count-up').forEach(el => cio.observe(el));
+
+    /* reviews */
+    const revs = [
+      { t:"I love the combination of brain challenges and physical exercises. It keeps my mind sharp while I am moving. I have never used anything like this before.", n:"A.T.", r:"Early Tester", i:"AT", c:"#B8935A" },
+      { t:"This app is a game changer. The cognitive questions during workouts make the session go by faster and I feel mentally sharper after.", n:"M.R.", r:"Early Tester", i:"MR", c:"#2E5044" },
+      { t:"I started using this for my morning workouts and now I feel like I am training both my brain and body at the same time. Brilliant concept.", n:"J.S.", r:"Early Tester", i:"JS", c:"#1A3028" },
+      { t:"The exercises are great, but what really surprised me were the brain challenges. They keep you focused and engaged the entire workout.", n:"L.P.", r:"Early Tester", i:"LP", c:"#4A7A62" },
+      { t:"As someone who enjoys puzzles and fitness, this app is perfect. It pushes you physically and mentally.", n:"D.K.", r:"Early Tester", i:"DK", c:"#B8935A" },
+      { t:"I recommended this to my parents. It is amazing for cognitive health while staying active. Really well thought out.", n:"C.V.", r:"Early Tester", i:"CV", c:"#2E5044" },
+      { t:"I noticed I stay more focused during workouts. The brain prompts make it feel like a full mental and physical training session.", n:"T.B.", r:"Early Tester", i:"TB", c:"#1A3028" },
+      { t:"Very unique idea. I have tried many fitness apps but none combine brain training like this.", n:"R.G.", r:"Early Tester", i:"RG", c:"#4A7A62" },
+      { t:"The cognitive challenges are fun and surprisingly challenging. Makes workouts more interactive.", n:"S.L.", r:"Early Tester", i:"SL", c:"#B8935A" },
+      { t:"I feel more alert throughout the day since using this app. The combination of thinking and movement really works.", n:"P.H.", r:"Early Tester", i:"PH", c:"#2E5044" },
+      { t:"This is a brilliant concept. It feels like a workout for your brain and body at the same time.", n:"B.M.", r:"Early Tester", i:"BM", c:"#1A3028" },
+      { t:"I use it before golf rounds and it actually helps me focus better. Love the mental warm-ups.", n:"K.J.", r:"Early Tester", i:"KJ", c:"#4A7A62" },
+      { t:"The app keeps me engaged during workouts. The brain questions make you think while moving.", n:"E.D.", r:"Early Tester", i:"ED", c:"#B8935A" },
+      { t:"Great for people who want more than just a typical workout. It challenges your mind too.", n:"N.W.", r:"Early Tester", i:"NW", c:"#2E5044" },
+      { t:"I love how simple but powerful the concept is. Physical training combined with brain performance is the future.", n:"H.F.", r:"Early Tester", i:"HF", c:"#1A3028" },
+    ];
+    function card(r){ return `<div class="rev-card"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-txt">"${r.t}"</p><div class="rev-auth"><div class="rev-av" style="background:${r.c}">${r.i}</div><div><span class="rev-name">${r.n}</span><span class="rev-role">${r.r}</span></div></div></div>`; }
+    function fill(id,items){ const el=document.getElementById(id); el.innerHTML=[...items,...items].map(card).join(''); }
+    fill('t1', revs.slice(0,8)); fill('t2', revs.slice(7));
+
+    /* forms */
+    function ve(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+    function se(id){ document.getElementById(id).classList.add('on'); return false; }
+    function ce(id){ document.getElementById(id).classList.remove('on'); }
+
+    document.getElementById('sf').addEventListener('submit', function(e){
+      e.preventDefault();
+      const fn=document.getElementById('sf-fn').value.trim(), ln=document.getElementById('sf-ln').value.trim(), em=document.getElementById('sf-em').value.trim(), rf=document.getElementById('sf-rf').value.trim();
+      ['sf-fn-e','sf-ln-e','sf-em-e'].forEach(ce); let ok=true;
+      if(!fn){se('sf-fn-e');ok=false;} if(!ln){se('sf-ln-e');ok=false;} if(!ve(em)){se('sf-em-e');ok=false;}
+      if(!ok) return;
+      let d=[]; try{d=JSON.parse(localStorage.getItem('lbl_signups')||'[]');}catch(x){}
+      d.push({firstName:fn,lastName:ln,email:em,referral:rf,timestamp:new Date().toISOString()});
+      localStorage.setItem('lbl_signups',JSON.stringify(d));
+      document.getElementById('sc').style.display='none';
+      document.getElementById('sok').classList.add('on');
+    });
+
+    document.getElementById('cf').addEventListener('submit', function(e){
+      e.preventDefault();
+      const fn=document.getElementById('cf-fn').value.trim(), ln=document.getElementById('cf-ln').value.trim(), em=document.getElementById('cf-em').value.trim(), msg=document.getElementById('cf-msg').value.trim();
+      ['cf-fn-e','cf-ln-e','cf-em-e','cf-msg-e'].forEach(ce); let ok=true;
+      if(!fn){se('cf-fn-e');ok=false;} if(!ln){se('cf-ln-e');ok=false;} if(!ve(em)){se('cf-em-e');ok=false;} if(!msg){se('cf-msg-e');ok=false;}
+      if(!ok) return;
+      let d=[]; try{d=JSON.parse(localStorage.getItem('lbl_inquiries')||'[]');}catch(x){}
+      d.push({firstName:fn,lastName:ln,email:em,message:msg,timestamp:new Date().toISOString()});
+      localStorage.setItem('lbl_inquiries',JSON.stringify(d));
+      document.getElementById('cc').style.display='none';
+      document.getElementById('cok').classList.add('on');
+    });
+
+    function downloadSignups(){
+      let d=[]; try{d=JSON.parse(localStorage.getItem('lbl_signups')||'[]');}catch(x){}
+      if(!d.length){alert('No signups yet.');return;}
+      const hdr=['First Name','Last Name','Email','Referral Code','Timestamp'];
+      const rows=d.map(r=>[`"${r.firstName}"`,`"${r.lastName}"`,`"${r.email}"`,`"${r.referral||''}"`,`"${r.timestamp}"`].join(','));
+      const csv=[hdr.join(','),...rows].join('\n');
+      const blob=new Blob([csv],{type:'text/csv'});
+      const url=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=url; a.download='signups.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+    document.getElementById('exl').addEventListener('click',function(e){e.preventDefault();downloadSignups();});
+  </script>
+</body>
+</html>
