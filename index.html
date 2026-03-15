@@ -918,108 +918,136 @@
   <a href="#hero" class="btt" id="btt" aria-label="Back to top">&#8593;</a>
 
   <script>
-    /* nav scroll */
-    const nav = document.getElementById('nav'), btt = document.getElementById('btt');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('sc', scrollY > 60);
-      btt.classList.toggle('v', scrollY > 400);
+  const SIGNUP_URL  = 'https://formspree.io/f/mwvrpzao';
+  const CONTACT_URL = 'https://formspree.io/f/mjgaeprb';
+
+  /* nav scroll */
+  const nav = document.getElementById('nav'), btt = document.getElementById('btt');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('sc', scrollY > 60);
+    btt.classList.toggle('v', scrollY > 400);
+  });
+
+  /* hamburger */
+  const hbg = document.getElementById('hbg'), mob = document.getElementById('mob');
+  hbg.addEventListener('click', () => { hbg.classList.toggle('o'); mob.classList.toggle('o'); });
+  function cm() { hbg.classList.remove('o'); mob.classList.remove('o'); }
+
+  /* hero headline word animation */
+  (function(){
+    const el = document.getElementById('hero-h1');
+    const words = el.textContent.trim().split(' ');
+    el.innerHTML = words.map((w,i) =>
+      `<span class="word-wrap"><span class="word-inner" style="animation-delay:${0.07*i}s">${w}</span></span>`
+    ).join(' ');
+  })();
+
+  /* scroll reveal */
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), { threshold: .10 });
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
+
+  /* count-up */
+  const cio = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if(!e.isIntersecting) return;
+      const el = e.target, target = +el.dataset.target, suf = el.dataset.suffix||'';
+      let cur = 0;
+      const step = target > 50 ? Math.ceil(target/38) : 1;
+      const t = setInterval(() => { cur = Math.min(cur+step,target); el.textContent=cur+suf; if(cur>=target) clearInterval(t); }, 28);
+      cio.unobserve(el);
     });
+  }, { threshold: .4 });
+  document.querySelectorAll('.count-up').forEach(el => cio.observe(el));
 
-    /* hamburger */
-    const hbg = document.getElementById('hbg'), mob = document.getElementById('mob');
-    hbg.addEventListener('click', () => { hbg.classList.toggle('o'); mob.classList.toggle('o'); });
-    function cm() { hbg.classList.remove('o'); mob.classList.remove('o'); }
+  /* reviews */
+  const revs = [
+    { t:"I love the combination of brain challenges and physical exercises. It keeps my mind sharp while I am moving. I have never used anything like this before.", n:"A.T.", r:"Early Tester", i:"AT", c:"#B8935A" },
+    { t:"This app is a game changer. The cognitive questions during workouts make the session go by faster and I feel mentally sharper after.", n:"M.R.", r:"Early Tester", i:"MR", c:"#2E5044" },
+    { t:"I started using this for my morning workouts and now I feel like I am training both my brain and body at the same time. Brilliant concept.", n:"J.S.", r:"Early Tester", i:"JS", c:"#1A3028" },
+    { t:"The exercises are great, but what really surprised me were the brain challenges. They keep you focused and engaged the entire workout.", n:"L.P.", r:"Early Tester", i:"LP", c:"#4A7A62" },
+    { t:"As someone who enjoys puzzles and fitness, this app is perfect. It pushes you physically and mentally.", n:"D.K.", r:"Early Tester", i:"DK", c:"#B8935A" },
+    { t:"I recommended this to my parents. It is amazing for cognitive health while staying active. Really well thought out.", n:"C.V.", r:"Early Tester", i:"CV", c:"#2E5044" },
+    { t:"I noticed I stay more focused during workouts. The brain prompts make it feel like a full mental and physical training session.", n:"T.B.", r:"Early Tester", i:"TB", c:"#1A3028" },
+    { t:"Very unique idea. I have tried many fitness apps but none combine brain training like this.", n:"R.G.", r:"Early Tester", i:"RG", c:"#4A7A62" },
+    { t:"The cognitive challenges are fun and surprisingly challenging. Makes workouts more interactive.", n:"S.L.", r:"Early Tester", i:"SL", c:"#B8935A" },
+    { t:"I feel more alert throughout the day since using this app. The combination of thinking and movement really works.", n:"P.H.", r:"Early Tester", i:"PH", c:"#2E5044" },
+    { t:"This is a brilliant concept. It feels like a workout for your brain and body at the same time.", n:"B.M.", r:"Early Tester", i:"BM", c:"#1A3028" },
+    { t:"I use it before golf rounds and it actually helps me focus better. Love the mental warm-ups.", n:"K.J.", r:"Early Tester", i:"KJ", c:"#4A7A62" },
+    { t:"The app keeps me engaged during workouts. The brain questions make you think while moving.", n:"E.D.", r:"Early Tester", i:"ED", c:"#B8935A" },
+    { t:"Great for people who want more than just a typical workout. It challenges your mind too.", n:"N.W.", r:"Early Tester", i:"NW", c:"#2E5044" },
+    { t:"I love how simple but powerful the concept is. Physical training combined with brain performance is the future.", n:"H.F.", r:"Early Tester", i:"HF", c:"#1A3028" },
+  ];
+  function card(r){ return `<div class="rev-card"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-txt">"${r.t}"</p><div class="rev-auth"><div class="rev-av" style="background:${r.c}">${r.i}</div><div><span class="rev-name">${r.n}</span><span class="rev-role">${r.r}</span></div></div></div>`; }
+  function fill(id,items){ const el=document.getElementById(id); el.innerHTML=[...items,...items].map(card).join(''); }
+  fill('t1', revs.slice(0,8)); fill('t2', revs.slice(7));
 
-    /* hero headline word animation */
-    (function(){
-      const el = document.getElementById('hero-h1');
-      const words = el.textContent.trim().split(' ');
-      el.innerHTML = words.map((w,i) =>
-        `<span class="word-wrap"><span class="word-inner" style="animation-delay:${0.07*i}s">${w}</span></span>`
-      ).join(' ');
-    })();
+  /* shared form helpers */
+  function ve(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function showErr(id){ document.getElementById(id).classList.add('on'); }
+  function hideErr(id){ document.getElementById(id).classList.remove('on'); }
 
-    /* scroll reveal */
-    const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), { threshold: .10 });
-    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => io.observe(el));
-
-    /* count-up */
-    const cio = new IntersectionObserver(es => {
-      es.forEach(e => {
-        if(!e.isIntersecting) return;
-        const el = e.target, target = +el.dataset.target, suf = el.dataset.suffix||'';
-        let cur = 0;
-        const step = target > 50 ? Math.ceil(target/38) : 1;
-        const t = setInterval(() => { cur = Math.min(cur+step,target); el.textContent=cur+suf; if(cur>=target) clearInterval(t); }, 28);
-        cio.unobserve(el);
+  async function submitForm(url, payload, btnEl, onSuccess) {
+    btnEl.disabled = true;
+    btnEl.textContent = 'Sending…';
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
       });
-    }, { threshold: .4 });
-    document.querySelectorAll('.count-up').forEach(el => cio.observe(el));
+      if (res.ok) {
+        onSuccess();
+      } else {
+        const data = await res.json();
+        btnEl.textContent = data.error || 'Something went wrong. Please try again.';
+        btnEl.disabled = false;
+      }
+    } catch {
+      btnEl.textContent = 'Network error. Please try again.';
+      btnEl.disabled = false;
+    }
+  }
 
-    /* reviews */
-    const revs = [
-      { t:"I love the combination of brain challenges and physical exercises. It keeps my mind sharp while I am moving. I have never used anything like this before.", n:"A.T.", r:"Early Tester", i:"AT", c:"#B8935A" },
-      { t:"This app is a game changer. The cognitive questions during workouts make the session go by faster and I feel mentally sharper after.", n:"M.R.", r:"Early Tester", i:"MR", c:"#2E5044" },
-      { t:"I started using this for my morning workouts and now I feel like I am training both my brain and body at the same time. Brilliant concept.", n:"J.S.", r:"Early Tester", i:"JS", c:"#1A3028" },
-      { t:"The exercises are great, but what really surprised me were the brain challenges. They keep you focused and engaged the entire workout.", n:"L.P.", r:"Early Tester", i:"LP", c:"#4A7A62" },
-      { t:"As someone who enjoys puzzles and fitness, this app is perfect. It pushes you physically and mentally.", n:"D.K.", r:"Early Tester", i:"DK", c:"#B8935A" },
-      { t:"I recommended this to my parents. It is amazing for cognitive health while staying active. Really well thought out.", n:"C.V.", r:"Early Tester", i:"CV", c:"#2E5044" },
-      { t:"I noticed I stay more focused during workouts. The brain prompts make it feel like a full mental and physical training session.", n:"T.B.", r:"Early Tester", i:"TB", c:"#1A3028" },
-      { t:"Very unique idea. I have tried many fitness apps but none combine brain training like this.", n:"R.G.", r:"Early Tester", i:"RG", c:"#4A7A62" },
-      { t:"The cognitive challenges are fun and surprisingly challenging. Makes workouts more interactive.", n:"S.L.", r:"Early Tester", i:"SL", c:"#B8935A" },
-      { t:"I feel more alert throughout the day since using this app. The combination of thinking and movement really works.", n:"P.H.", r:"Early Tester", i:"PH", c:"#2E5044" },
-      { t:"This is a brilliant concept. It feels like a workout for your brain and body at the same time.", n:"B.M.", r:"Early Tester", i:"BM", c:"#1A3028" },
-      { t:"I use it before golf rounds and it actually helps me focus better. Love the mental warm-ups.", n:"K.J.", r:"Early Tester", i:"KJ", c:"#4A7A62" },
-      { t:"The app keeps me engaged during workouts. The brain questions make you think while moving.", n:"E.D.", r:"Early Tester", i:"ED", c:"#B8935A" },
-      { t:"Great for people who want more than just a typical workout. It challenges your mind too.", n:"N.W.", r:"Early Tester", i:"NW", c:"#2E5044" },
-      { t:"I love how simple but powerful the concept is. Physical training combined with brain performance is the future.", n:"H.F.", r:"Early Tester", i:"HF", c:"#1A3028" },
-    ];
-    function card(r){ return `<div class="rev-card"><div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-txt">"${r.t}"</p><div class="rev-auth"><div class="rev-av" style="background:${r.c}">${r.i}</div><div><span class="rev-name">${r.n}</span><span class="rev-role">${r.r}</span></div></div></div>`; }
-    function fill(id,items){ const el=document.getElementById(id); el.innerHTML=[...items,...items].map(card).join(''); }
-    fill('t1', revs.slice(0,8)); fill('t2', revs.slice(7));
-
-    /* forms */
-    function ve(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-    function se(id){ document.getElementById(id).classList.add('on'); return false; }
-    function ce(id){ document.getElementById(id).classList.remove('on'); }
-
-    document.getElementById('sf').addEventListener('submit', function(e){
-      e.preventDefault();
-      const fn=document.getElementById('sf-fn').value.trim(), ln=document.getElementById('sf-ln').value.trim(), em=document.getElementById('sf-em').value.trim(), rf=document.getElementById('sf-rf').value.trim();
-      ['sf-fn-e','sf-ln-e','sf-em-e'].forEach(ce); let ok=true;
-      if(!fn){se('sf-fn-e');ok=false;} if(!ln){se('sf-ln-e');ok=false;} if(!ve(em)){se('sf-em-e');ok=false;}
-      if(!ok) return;
-      let d=[]; try{d=JSON.parse(localStorage.getItem('lbl_signups')||'[]');}catch(x){}
-      d.push({firstName:fn,lastName:ln,email:em,referral:rf,timestamp:new Date().toISOString()});
-      localStorage.setItem('lbl_signups',JSON.stringify(d));
-      document.getElementById('sc').style.display='none';
+  /* signup form */
+  document.getElementById('sf').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const fn = document.getElementById('sf-fn').value.trim();
+    const ln = document.getElementById('sf-ln').value.trim();
+    const em = document.getElementById('sf-em').value.trim();
+    const rf = document.getElementById('sf-rf').value.trim();
+    ['sf-fn-e','sf-ln-e','sf-em-e'].forEach(hideErr);
+    let ok = true;
+    if (!fn) { showErr('sf-fn-e'); ok = false; }
+    if (!ln) { showErr('sf-ln-e'); ok = false; }
+    if (!ve(em)) { showErr('sf-em-e'); ok = false; }
+    if (!ok) return;
+    const btn = this.querySelector('button[type="submit"]');
+    await submitForm(SIGNUP_URL, { firstName: fn, lastName: ln, email: em, referral: rf }, btn, () => {
+      document.getElementById('sc').style.display = 'none';
       document.getElementById('sok').classList.add('on');
     });
+  });
 
-    document.getElementById('cf').addEventListener('submit', function(e){
-      e.preventDefault();
-      const fn=document.getElementById('cf-fn').value.trim(), ln=document.getElementById('cf-ln').value.trim(), em=document.getElementById('cf-em').value.trim(), msg=document.getElementById('cf-msg').value.trim();
-      ['cf-fn-e','cf-ln-e','cf-em-e','cf-msg-e'].forEach(ce); let ok=true;
-      if(!fn){se('cf-fn-e');ok=false;} if(!ln){se('cf-ln-e');ok=false;} if(!ve(em)){se('cf-em-e');ok=false;} if(!msg){se('cf-msg-e');ok=false;}
-      if(!ok) return;
-      let d=[]; try{d=JSON.parse(localStorage.getItem('lbl_inquiries')||'[]');}catch(x){}
-      d.push({firstName:fn,lastName:ln,email:em,message:msg,timestamp:new Date().toISOString()});
-      localStorage.setItem('lbl_inquiries',JSON.stringify(d));
-      document.getElementById('cc').style.display='none';
+  /* contact form */
+  document.getElementById('cf').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const fn  = document.getElementById('cf-fn').value.trim();
+    const ln  = document.getElementById('cf-ln').value.trim();
+    const em  = document.getElementById('cf-em').value.trim();
+    const msg = document.getElementById('cf-msg').value.trim();
+    ['cf-fn-e','cf-ln-e','cf-em-e','cf-msg-e'].forEach(hideErr);
+    let ok = true;
+    if (!fn)     { showErr('cf-fn-e');  ok = false; }
+    if (!ln)     { showErr('cf-ln-e');  ok = false; }
+    if (!ve(em)) { showErr('cf-em-e');  ok = false; }
+    if (!msg)    { showErr('cf-msg-e'); ok = false; }
+    if (!ok) return;
+    const btn = this.querySelector('button[type="submit"]');
+    await submitForm(CONTACT_URL, { firstName: fn, lastName: ln, email: em, message: msg }, btn, () => {
+      document.getElementById('cc').style.display = 'none';
       document.getElementById('cok').classList.add('on');
     });
-
-    function downloadSignups(){
-      let d=[]; try{d=JSON.parse(localStorage.getItem('lbl_signups')||'[]');}catch(x){}
-      if(!d.length){alert('No signups yet.');return;}
-      const hdr=['First Name','Last Name','Email','Referral Code','Timestamp'];
-      const rows=d.map(r=>[`"${r.firstName}"`,`"${r.lastName}"`,`"${r.email}"`,`"${r.referral||''}"`,`"${r.timestamp}"`].join(','));
-      const csv=[hdr.join(','),...rows].join('\n');
-      const blob=new Blob([csv],{type:'text/csv'});
-      const url=URL.createObjectURL(blob), a=document.createElement('a');
-      a.href=url; a.download='signups.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-    }
-    document.getElementById('exl').addEventListener('click',function(e){e.preventDefault();downloadSignups();});
-  </script>
+  });
+</script>
 </body>
 </html>
