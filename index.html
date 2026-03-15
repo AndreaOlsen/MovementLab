@@ -918,8 +918,29 @@
   <a href="#hero" class="btt" id="btt" aria-label="Back to top">&#8593;</a>
 
   <script>
-  const SIGNUP_URL  = 'https://formspree.io/f/mwvrpzao';
-  const CONTACT_URL = 'https://formspree.io/f/mjgaeprb';
+  const WEB3_KEY = 'e943edea-b6eb-47d8-ac2f-e848ca028e13';
+
+  async function submitForm(formName, payload, btnEl, onSuccess) {
+    btnEl.disabled = true;
+    btnEl.textContent = 'Sending…';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ access_key: WEB3_KEY, subject: formName, ...payload })
+      });
+      const data = await res.json();
+      if (data.success) {
+        onSuccess();
+      } else {
+        btnEl.textContent = 'Something went wrong. Please try again.';
+        btnEl.disabled = false;
+      }
+    } catch {
+      btnEl.textContent = 'Network error. Please try again.';
+      btnEl.disabled = false;
+    }
+  }
 
   /* nav scroll */
   const nav = document.getElementById('nav'), btt = document.getElementById('btt');
@@ -986,28 +1007,6 @@
   function showErr(id){ document.getElementById(id).classList.add('on'); }
   function hideErr(id){ document.getElementById(id).classList.remove('on'); }
 
-  async function submitForm(url, payload, btnEl, onSuccess) {
-    btnEl.disabled = true;
-    btnEl.textContent = 'Sending…';
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (res.ok) {
-        onSuccess();
-      } else {
-        const data = await res.json();
-        btnEl.textContent = data.error || 'Something went wrong. Please try again.';
-        btnEl.disabled = false;
-      }
-    } catch {
-      btnEl.textContent = 'Network error. Please try again.';
-      btnEl.disabled = false;
-    }
-  }
-
   /* signup form */
   document.getElementById('sf').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -1022,7 +1021,7 @@
     if (!ve(em)) { showErr('sf-em-e'); ok = false; }
     if (!ok) return;
     const btn = this.querySelector('button[type="submit"]');
-    await submitForm(SIGNUP_URL, { firstName: fn, lastName: ln, email: em, referral: rf }, btn, () => {
+    await submitForm('New Signup — Longevity Brain Lab', { firstName: fn, lastName: ln, email: em, referral: rf }, btn, () => {
       document.getElementById('sc').style.display = 'none';
       document.getElementById('sok').classList.add('on');
     });
@@ -1043,7 +1042,7 @@
     if (!msg)    { showErr('cf-msg-e'); ok = false; }
     if (!ok) return;
     const btn = this.querySelector('button[type="submit"]');
-    await submitForm(CONTACT_URL, { firstName: fn, lastName: ln, email: em, message: msg }, btn, () => {
+    await submitForm('New Contact Message — Longevity Brain Lab', { firstName: fn, lastName: ln, email: em, message: msg }, btn, () => {
       document.getElementById('cc').style.display = 'none';
       document.getElementById('cok').classList.add('on');
     });
